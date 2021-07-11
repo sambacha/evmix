@@ -97,8 +97,8 @@ class Loader(EasyCopy):
                 code = source_file.read().strip()
         else:
             logger.info("Fetching code for %s...", address)
-            from web3 import Web3
-            from web3.auto import w3
+            from web3 import Web3, HTTPProvider
+            w3 = Web3(HTTPProvider("https://cloudflare-eth.com/"))
 
             code = w3.eth.getCode(Web3.toChecksumAddress(address)).hex()[2:]
             if code:

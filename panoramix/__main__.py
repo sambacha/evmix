@@ -68,9 +68,8 @@ def print_decompilation(this_addr):
         this_addr = addr_shortcuts[this_addr.lower()]
 
     function_name = None
-    if len(sys.argv) > 2:
-        if not sys.argv[2].startswith("--"):
-            function_name = sys.argv[2]
+    if len(sys.argv) > 2 and not sys.argv[2].startswith("--"):
+        function_name = sys.argv[2]
 
     if this_addr == "-":
         this_addr = sys.stdin.read().strip()

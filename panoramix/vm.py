@@ -70,7 +70,7 @@ def find_nodes(node, f):
     return res
 
 
-MAX_NODE_COUNT = 10_000
+MAX_NODE_COUNT = 60_000
 node_count = 0
 
 
@@ -351,19 +351,18 @@ class VM(EasyCopy):
         lines = self.lines
 
         if i not in lines:
-            if type(i) != int:
-                return [("undefined", "jump to a parameter computed at runtime", i)]
-            else:
+            if type(i) == int:
                 return [("invalid", "jumdest", i)]
 
-        if not safe:
-            if lines[i][1] == "jumpdest":
-                i = self.loader.next_line(i)
-                if i not in lines:
-                    return [("invalid", "eof?")]
             else:
+                return [("undefined", "jump to a parameter computed at runtime", i)]
+        if not safe:
+            if lines[i][1] != "jumpdest":
                 return [("invalid", "jump")]
 
+            i = self.loader.next_line(i)
+            if i not in lines:
+                return [("invalid", "eof?")]
         while True:
             try:
                 line = lines[i]
