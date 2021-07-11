@@ -125,7 +125,9 @@ def fetch_sig(hash):
     if type(hash) == str:
         hash = int(hash, 16)
     hash = "{:#010x}".format(hash)
-    r = requests.get("https://www.4byte.directory/api/v1/signatures/?hex_signature=" + hash)
+    r = requests.get(
+        "https://www.4byte.directory/api/v1/signatures/?hex_signature=" + hash
+    )
     if r.json()["count"] > 0:
         ret = r.json()["results"][0]
         text = ret["text_signature"]
@@ -144,22 +146,22 @@ def fetch_sig(hash):
     else:
         c = _cursor()
         c.execute(
-        "SELECT hash, name, folded_name, params, cooccurs from functions where hash=?",
-        (hash,),
+            "SELECT hash, name, folded_name, params, cooccurs from functions where hash=?",
+            (hash,),
         )
 
         results = c.fetchall()
         if len(results) == 0:
             return None
 
-    # Take the one that cooccurs with the most things, it's probably the most relevant.
+        # Take the one that cooccurs with the most things, it's probably the most relevant.
         row = max(results, key=lambda row: len(row[4]))
 
         return {
-        "hash": hash,
-        "name": row[1],
-        "folded_name": row[2],
-        "params": json.loads(row[3]),
+            "hash": hash,
+            "name": row[1],
+            "folded_name": row[2],
+            "params": json.loads(row[3]),
         }
 
 

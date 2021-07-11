@@ -72,5 +72,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     extras_require=EXTRAS,
     include_package_data=True,
-    entry_points={"console_scripts": ["panoramix=panoramix.__main__:main"]}, # deploy panoramix shell command
+    entry_points={
+        "console_scripts": ["panoramix=panoramix.__main__:main"]
+    },  # deploy panoramix shell command
 )

@@ -2,7 +2,14 @@ import logging
 import sys
 
 from panoramix.matcher import Any, match
-from panoramix.utils.helpers import before_after, cached, contains, is_array, opcode, replace
+from panoramix.utils.helpers import (
+    before_after,
+    cached,
+    contains,
+    is_array,
+    opcode,
+    replace,
+)
 
 from panoramix.core.algebra import (
     CannotCompare,

@@ -42,6 +42,7 @@ colors = {
 
 logger = logging.getLogger(__name__)
 
+
 def convert(text):
 
     for asci, html in colors.items():
@@ -155,7 +156,7 @@ def cached(func):
         key = args + tuple(kwargs.items())
         try:
             return cache[key]
-        except TypeError: # If it contains lists.
+        except TypeError:  # If it contains lists.
             return func(*args, **kwargs)
         except KeyError:
             pass
@@ -590,7 +591,6 @@ def replace_f(in_exp, f):
 
     keep_type = type(in_exp)
     res = keep_type(replace_f(e, f) for e in in_exp)
-
 
     return f(res)
 
